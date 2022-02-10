@@ -5,8 +5,64 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario</title>
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js"></script> -->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+                        
 </head>
 <body>
-    <h1>Hola</h1>
+    <h4>Solicitud de Equipamiento Multimedia - Clases</h4>
+    <div class="row">
+        <form class="col s12">
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="materia" type="text" class="validate" placeholder="Materia" required>
+                    <label for="materia">Materia</label>
+                </div>
+                <div class="input-field col s12">
+                    <input placeholder="Apellido y Nombre" id="nombre_apellido" type="text" class="validate" required>
+                    <label for="nombre_apellido">Apellido y Nombre</label>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="dni" type="number" class="validate" required>
+                    <label for="dni">DNI</label>
+                </div>
+                <div class="input-field col s12">
+                    <input id="telefono" type="tel" class="validate" required>
+                    <label for="telefono">Teléfono de Contacto</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="email" type="email" data-error="e-mail inválido" class="validate" required>
+                    <label for="email">Email</label>
+                </div>
+            </div>
+            <div class="row">
+                <select>
+                    <option value="" disabled selected>Equipo Requerido</option>
+                    <option value="proyector">Proyector</option>
+                    <option value="notebook">Notebook</option>
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s4"></div>
+                <div class="input-field col s4">
+                    <input type="submit" value="Enviar Pedido" class="waves-effect waves-light btn">
+                </div>
+                <div class="input-field col s4"></div>
+            </div>
+        </form>
+      </div>
+            
 </body>
 </html>
