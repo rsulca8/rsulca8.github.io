@@ -14,85 +14,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <style>
 
-        .logo{
-                    height: 5em;
-                    width: 5em;
-                    margin: 2em;
-                }
-            
-        .contenedor_logos{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .contenedor_titulo{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 8em !important;
-            text-align: center;
-            vertical-align: center;
+        iframe{
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
 <body>
-    <div class="row">
-      <div class="col s12">
-        <div class="col s4 contenedor_logos"><img src="logo_fcejys.png" class="logo"></div>
-        <div class="col s4 contenedor_titulo">
-            <h6>Solicitud de Equipamiento Multimedia - Clases</h6>
-        </div>
-        <div class="col s4 contenedor_logos"><img src="logo_unsa.jpg" class="logo"></div>
-      </div>
-
-    </div >
-    <div class="row">
-        <form class="col s12">
-
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="materia" type="text" class="validate" placeholder="Materia" required>
-                    <label for="materia">Materia</label>
-                </div>
-                <div class="input-field col s12">
-                    <input placeholder="Apellido y Nombre" id="nombre_apellido" type="text" class="validate" required>
-                    <label for="nombre_apellido">Apellido y Nombre</label>
-                </div>
-            </div>
-
-
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="dni" type="number" min=1000000 placeholder="Ingrese DNI, sin puntos" class="validate" required>
-                    <label for="dni">DNI</label>
-                </div>
-                <div class="input-field col s12">
-                    <input id="telefono" type="tel" class="validate" placeholder="Teléfono de contacto" required>
-                    <label for="telefono">Teléfono de contacto, sin 0 y sin 15, en lo posible con WhatsApp</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="email" type="email" data-error="e-mail inválido" class="validate" required>
-                    <label for="email">Email</label>
-                </div>
-            </div>
-            <div class="row">
-                <select>
-                    <option value="" disabled selected>Equipo Requerido</option>
-                    <option value="proyector">Proyector</option>
-                    <option value="notebook">Notebook</option>
-                </select>
-            </div>
-
-            <div class="row">
-                <div class="input-field col s6">
-                    <input type="submit" value="Enviar Pedido" class="waves-effect waves-light btn">
-                </div>
-            </div>
-        </form>
-      </div>
+    <iframe src="https://script.google.com/macros/s/AKfycbxG1HCkxzviyk3VcLMgu6GWwUnFccdHx4F6op4-5nMYNJa9LqrNEkVmZXs3FkEgkwVy/exec?pagina=formulario_equipos" frameborder="0"></iframe>
             
 </body>
 </html>
