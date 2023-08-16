@@ -26,10 +26,11 @@
         }
     </style>
     <script>
+        (async () => {
         let url = 'https://script.google.com/macros/s/AKfycbwVOwCQQ7sO8_x0U2Ij_PFsOP-jZY-JaW95Ywh2Els1RdrVNC-RktG6egx0Y_VasO0M/exec';
         let response = await fetch(url);
         let json = await response.json();
-        console.log(json);
+        console.log(json)})();
     </script>
 </head>
 <body>
