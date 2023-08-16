@@ -25,9 +25,14 @@
                 overflow: hidden;
         }
     </style>
+    <script>
+        let url = 'https://script.google.com/macros/s/AKfycbwVOwCQQ7sO8_x0U2Ij_PFsOP-jZY-JaW95Ywh2Els1RdrVNC-RktG6egx0Y_VasO0M/exec';
+        let response = await fetch(url);
+        let json = await response.json();
+        console.log(json);
+    </script>
 </head>
 <body>
-    <iframe src="https://script.google.com/macros/s/AKfycbxrP3irWQrdYzCK1lFqvrbfJ7zYkwQCoowYtOHYoejhcSdOeZ8/exec?pagina=formulario_equipos" frameborder="0"></iframe>
-            
+                
 </body>
 </html>
