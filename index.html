@@ -37,6 +37,17 @@
         #menu_content{
             max-width: fit-content;
         }
+
+        .boton_categoria{
+            width: 33.33333% !important;
+        }
+        
+        @media (max-width: 500px) {
+            .boton_categoria{
+            width: 50% !important;
+        }
+        }
+
     </style>
 
 
@@ -111,7 +122,7 @@
             var botones_categorias = document.querySelector("#categorias_id");
             var es_primer_categoria = botones_categorias.children.length == 0;
             botones_categorias.innerHTML += ` <a href="javascript:void(0)" onclick="openMenu(event, '${nombre_categoria}');" id="id_${id_categoria}">
-                                            <div class="w3-col s4 tablink w3-padding-large w3-hover-red">${nombre_categoria}</div>
+                                            <div class="w3-col s4 tablink w3-padding-large w3-hover-red boton_categoria">${nombre_categoria}</div>
                                         </a>`;
             var contenido_menu = document.querySelector("#menu_content");
             var contenido_categoria = document.createElement("div");
