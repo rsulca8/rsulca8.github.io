@@ -114,6 +114,11 @@
                 transform: translate(24px, 0);
             }
         }
+
+
+        .descripcion-producto{
+            font-size: 30px !important;
+        }
     </style>
 
 
@@ -223,7 +228,7 @@
                                                 <span class="w3-tag w3-red w3-round">${comentario}</span>
                                                 <span class="w3-right w3-tag w3-dark-grey w3-round">$${precio}</span>
                                             </h1>
-                                            <p class="w3-text-grey">${descripcion}</p>
+                                            <p class="w3-text-grey descripcion-producto">${descripcion}</p>
                                             <hr>`;
                 }
                 else {
@@ -231,7 +236,7 @@
                                                 <b>${nombre_producto}</b> 
                                                 <span class="w3-right w3-tag w3-dark-grey w3-round">$${precio}</span>
                                             </h1>
-                                            <p class="w3-text-grey">${descripcion}</p>
+                                            <p class="w3-text-grey descripcion-producto">${descripcion}</p>
                                             <hr>`;
                 }
 
