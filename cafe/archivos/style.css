@@ -2142,6 +2142,7 @@ button {
   justify-content: space-between;
   transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
   background-color: white;
+  margin-bottom: 10px;
 }
 .recipe_item:hover {
   transform: translateY(-5px);
