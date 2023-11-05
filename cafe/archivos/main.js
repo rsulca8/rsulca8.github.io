@@ -153,29 +153,22 @@
     }
 
 
-    function agregar_producto(nombre_categoria, nombre_producto, precio, comentario, descripcion, id) {
+    function agregar_producto(nombre_categoria, nombre_producto, precio, comentario, descripcion, url_imagen) {
         let id_categoria = nombre_categoria.replace(" ", "_");
         let contenido_categorias = document.getElementById(id_categoria);
 
-        let base_url = obtener_URL_Base();
-        let url_img_sin_imagen = base_url + "/imagenes/sin_imagen.png";
-        let url_img = url_img_sin_imagen;
-        
-        // if(existeImagen(base_url + "/imagenes/" + id + ".jpg")){
-        //   url_img = base_url + "/imagenes/" + id + ".jpg";
-        // }
 
-        // if(url_img_sin_imagen == url_img){
-        //   if(existeImagen(base_url + "/imagenes/" + id + ".png")){
-        //     url_img = base_url + "/imagenes/" + id + ".png";
-        //   } 
-        // }
+        if(url_img == ""){
+          let base_url = obtener_URL_Base();
+          url_imagen = base_url + "/imagenes/sin_imagen.png";
+        }
+
 
         if (comentario != "") {
           contenido_categorias.innerHTML += `<div class="recipe_item">
           <div class="content_col">
             <a class="item_image" href="#">
-              <img src="${url_img}" he alt="Imagen de ${nombre_producto}">
+              <img src="${url_imagen}" he alt="Imagen de ${nombre_producto}">
             </a>
             <div class="item_content">
               <h3 class="item_title text-uppercase">
@@ -198,7 +191,7 @@
           contenido_categorias.innerHTML += `<div class="recipe_item">
           <div class="content_col">
             <a class="item_image" href="#">
-              <img src="${url_img}" alt="Imagen de ${nombre_producto}">
+              <img src="${url_imagen}" alt="Imagen de ${nombre_producto}">
             </a>
             <div class="item_content">
               <h3 class="item_title text-uppercase">
@@ -229,7 +222,7 @@
                 json_productos[id_categoria].productos[id_producto].precio,
                 json_productos[id_categoria].productos[id_producto].comentario,
                 json_productos[id_categoria].productos[id_producto].descripcion,
-                json_productos[id_categoria].productos[id_producto].id);
+                json_productos[id_categoria].productos[id_producto].url_imagen);
         }
     }
         // ocultarLoader();
