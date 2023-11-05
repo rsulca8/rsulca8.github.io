@@ -146,9 +146,7 @@
 
 
         if(url_imagen == ""){
-          let base_url = window.location.protocol + window.location.host + window.location.pathname
-          base_url = base_url.substring(0, base_url.length - 1);
-          url_imagen = base_url + "/imagenes/sin_imagen.png";
+          url_imagen =  "imagenes/sin_imagen.png";
         }
 
 
