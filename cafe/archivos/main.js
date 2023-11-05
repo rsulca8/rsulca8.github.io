@@ -106,7 +106,7 @@
 
   (async () => {
     // mostrarLoader();
-    var response = await fetch("https://script.google.com/macros/s/AKfycbxc5yGAeO8m6AAOS_KWDbQTWfUdeMtOHKlXCpL4hV55pYwSjJRvUM8c5d_RhbA3JstS/exec");
+    var response = await fetch("https://script.google.com/macros/s/AKfycbylQi2ia0LoeZYIxw7zv_T1aEb3CC0vhScN-tJqR-e6_YWzNzu6XZacMyCXykLRuE6q/exec");
     var json_productos = await response.json();
     function agregar_categoria(nombre_categoria) {
         var id_categoria = nombre_categoria.replace(" ", "_");
@@ -158,7 +158,7 @@
         let contenido_categorias = document.getElementById(id_categoria);
 
 
-        if(url_img == ""){
+        if(url_imagen == ""){
           let base_url = obtener_URL_Base();
           url_imagen = base_url + "/imagenes/sin_imagen.png";
         }
