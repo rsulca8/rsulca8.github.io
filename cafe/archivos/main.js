@@ -138,19 +138,6 @@
       }
     }
 
-    function obtener_URL_Base(){
-      let base = window.location.href.split("/");
-      let url;
-      if(base[base.length - 1].includes(".")){
-      	base.pop(base.length - 1);
-        url = base.join("/");
-      }
-      else{
-        url = base.join("/");
-        url.replace("#","");
-      }
-      return url;
-    }
 
 
     function agregar_producto(nombre_categoria, nombre_producto, precio, comentario, descripcion, url_imagen) {
@@ -159,7 +146,8 @@
 
 
         if(url_imagen == ""){
-          let base_url = obtener_URL_Base();
+          let base_url = window.location.protocol + window.location.host + window.location.pathname
+          base_url = base_url.substring(0, base_url.length - 1);
           url_imagen = base_url + "/imagenes/sin_imagen.png";
         }
 
