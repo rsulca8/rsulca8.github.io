@@ -161,15 +161,15 @@
         let url_img_sin_imagen = base_url + "/imagenes/sin_imagen.png";
         let url_img = url_img_sin_imagen;
         
-        if(existeImagen(base_url + "/imagenes/" + id + ".jpg")){
-          url_img = base_url + "/imagenes/" + id + ".jpg";
-        }
+        // if(existeImagen(base_url + "/imagenes/" + id + ".jpg")){
+        //   url_img = base_url + "/imagenes/" + id + ".jpg";
+        // }
 
-        if(url_img_sin_imagen == url_img){
-          if(existeImagen(base_url + "/imagenes/" + id + ".png")){
-            url_img = base_url + "/imagenes/" + id + ".png";
-          }
-        }
+        // if(url_img_sin_imagen == url_img){
+        //   if(existeImagen(base_url + "/imagenes/" + id + ".png")){
+        //     url_img = base_url + "/imagenes/" + id + ".png";
+        //   } 
+        // }
 
         if (comentario != "") {
           contenido_categorias.innerHTML += `<div class="recipe_item">
