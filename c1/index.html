@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Un día especial - Karen y Rodrigo</title>
+    <style>
+        :root {
+            --primary: #d81b60;
+            --primary-light: #f48fb1;
+            --bg-color: #fce4ec;
+            --text-color: #4a148c;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --grid-size: 25px;
+        }
+        @media (min-width: 500px) {
+            :root { --grid-size: 32px; }
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #ffcdd2 100%);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+        }
+        .container {
+            width: 95%;
+            max-width: 700px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(216, 27, 96, 0.2);
+            text-align: center;
+            margin: 20px 0;
+        }
+        h1 {
+            color: var(--primary);
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        p {
+            font-size: 1em;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+        .btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1.1em;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.3);
+            margin-top: 15px;
+            display: inline-block;
+        }
+        .btn:hover {
+            background: #ad1457;
+            transform: translateY(-2px);
+        }
+        .btn-reset {
+            background: #757575;
+            margin-top: 30px;
+            font-size: 0.9em;
+            padding: 8px 15px;
+        }
+        .btn-reset:hover {
+            background: #424242;
+        }
+        .screen {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .screen.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Acrostic Grid */
+        .acrostic-container {
+            margin: 20px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+        .acrostic-row {
+            display: flex;
+            margin-bottom: 4px;
+        }
+        .cell {
+            width: var(--grid-size);
+            height: var(--grid-size);
+            border: 1px solid #e0e0e0;
+            margin: 0 2px;
+            border-radius: 4px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 0.9em;
+            background: #fff;
+            color: transparent; 
+            transition: all 0.4s ease;
+        }
+        .cell.empty {
+            border: none;
+            background: transparent;
+        }
+        .cell.filled {
+            color: var(--text-color);
+            background: #f8bbd0;
+            border-color: var(--primary);
+        }
+        .cell.target {
+            border-width: 2px;
+        }
+        .target-revealed .cell.target.filled {
+            background: #ffd54f !important;
+            color: #b71c1c;
+            transform: scale(1.1);
+            box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+            z-index: 2;
+        }
+
+        /* Clues */
+        .clue-list {
+            text-align: left;
+            max-height: 40vh;
+            overflow-y: auto;
+            padding-right: 10px;
+            margin-top: 15px;
+            border-top: 2px dashed var(--primary-light);
+            padding-top: 15px;
+        }
+        .clue-item {
+            margin-bottom: 12px;
+            padding: 12px;
+            background: #fff;
+            border: 2px solid var(--primary-light);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .clue-item.solved {
+            background: #e8f5e9;
+            border-color: #66bb6a;
+            opacity: 0.7;
+        }
+        .clue-text {
+            font-weight: bold;
+            font-size: 0.95em;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .clue-input {
+            width: calc(100% - 20px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            text-transform: uppercase;
+        }
+        .clue-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        .progress {
+            margin-top: 15px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        .secret-message {
+            display: none;
+            font-size: 1.3em;
+            color: #d84315;
+            font-weight: bold;
+            margin: 15px 0;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Pantalla 1: Bienvenida -->
+        <div id="screen1" class="screen active">
+            <h1>Hola mi amor... ❤️</h1>
+            <p>Bienvenida a nuestros 3 años juntos. Fueron muchos momentos muy bellos estando a tu lado, puede parecer muchos, puede parecer poco, no lo sé, lo que si sé que fueron los momentos mas hermosos que vivimos en nuestras vidas. Gracias por acompañarme en este camino y por sumar a una nueva personita en este viaje. 👨‍👩‍👧</p>
+            <p>Te amo y sos lo más importante en mi vida 💘💞💓💕 </p>
+            <p>Para iniciar este lindo día empecemos con un pequeño juego...</p>
+            <button class="btn" onclick="nextScreen(2)">Comenzar el juego ✨</button>
+        </div>
+
+        <!-- Pantalla 2: Acróstico -->
+        <div id="screen2" class="screen">
+            <h2>Nuestra Historia</h2>
+            <p>Responde las pistas. Al completarlo, se revelará un <strong>mensaje oculto</strong> en la columna central.</p>
+            
+            <div class="acrostic-container" id="acrosticGrid">
+                <!-- Se genera con JS -->
+            </div>
+
+            <div class="secret-message" id="secretMessage">
+                ¡BUSCA LA CARTA! 💌
+            </div>
+            
+            <div class="progress" id="progressText">Completado: 0 / 12</div>
+            <button class="btn" id="btnNextChallenge" onclick="nextScreen(3)" style="display: none;">Ver el siguiente paso 🧩</button>
+
+            <div class="clue-list" id="cluesContainer">
+                <!-- Se generan con JS -->
+            </div>
+            
+            <!-- Botón opcional para reiniciar por si quieren volver a jugar -->
+            <button class="btn btn-reset" onclick="resetGame()">Reiniciar Juego</button>
+        </div>
+
+        <!-- Pantalla 3: Rompecabezas / Coordenadas -->
+        <div id="screen3" class="screen">
+            <h2>¡Felicidades mi vida! 🎉</h2>
+            <p>Descubriste el mensaje oculto. Demostramos que nos conocemos como nadie.</p>
+            <p>Tu segundo desafío ha comenzado. Debes dirigirte al lugar que indican las siguientes coordenadas. Allí, debajo de una piedra específica, dejé <strong>la carta</strong> con unos números misteriosos...</p>
+            
+            <div style="background: var(--primary-light); color: white; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                📍 Tu próximo destino:<br>
+                <span style="font-family: monospace; background: #fff; color: var(--primary); padding: 5px 10px; border-radius: 5px; display: inline-block; margin-top: 10px;">-24.786421051630075, -65.39965112556902</span><br>
+                <small>(Pista: Monumento a Güemes)</small>
+            </div>
+            
+            <p>Ve hacia allí, encuéntrala y guárdala. ¡La aventura de hoy recién empieza!</p>
+            <p>Te amo profundamente. ❤️</p>
+        </div>
+    </div>
+
+    <script>
+        const clues = [
+            { word: "CSB", q: "1. Siglas del lugar donde te di mi declaración de amor:", targetIdx: 2, pad: 1 },
+            { word: "SUDAMERICANA", q: "2. Nombre de la farmacia donde nos encontramos en nuestra primera cita:", targetIdx: 1, pad: 2 },
+            { word: "KRISKA", q: "3. Nombre de tu perfume que más me gusta:", targetIdx: 3, pad: 0 },
+            { word: "CASEROS", q: "4. Calle donde tomamos café en nuestra primera cita:", targetIdx: 0, pad: 3 },
+            { word: "TAMARA", q: "5. Primer nombre de nuestra hija:", targetIdx: 1, pad: 2 },
+            { word: "JULIO", q: "6. Mes en el que nos vinimos a vivir juntos:", targetIdx: 2, pad: 1 },
+            { word: "ABRIL", q: "7. Mes en el que nació nuestra hija:", targetIdx: 0, pad: 3 },
+            { word: "LACALDERA", q: "8. Nombre del lugar donde nos conocimos (todo junto):", targetIdx: 2, pad: 1 },
+            { word: "MORAS", q: "9. Fruta que te gusta 'robar' de los árboles de la calle:", targetIdx: 3, pad: 0 },
+            { word: "ROSAS", q: "10. Las flores que más te gustan:", targetIdx: 0, pad: 3 },
+            { word: "SEPTIEMBRE", q: "11. Mes en el que empezamos a salir:", targetIdx: 3, pad: 0 },
+            { word: "HABLAME", q: "12. Nombre de nuestra primera película en el cine:", targetIdx: 1, pad: 2 }
+        ];
+
+        let solvedState = JSON.parse(localStorage.getItem('solvedState')) || Array(clues.length).fill(false);
+        let solvedCount = solvedState.filter(Boolean).length;
+        const TARGET_COL = 3; 
+
+        function renderGame() {
+            const gridContainer = document.getElementById('acrosticGrid');
+            const cluesContainer = document.getElementById('cluesContainer');
+
+            // Limpiamos los contenedores por si se llama en un reinicio
+            gridContainer.innerHTML = '';
+            cluesContainer.innerHTML = '';
+
+            clues.forEach((clue, index) => {
+                // Render Row for Grid
+                const row = document.createElement('div');
+                row.className = 'acrostic-row';
+                row.id = `row-${index}`;
+                
+                // Calculamos cuántos espacios vacíos al inicio (pad)
+                for (let i = 0; i < clue.pad; i++) {
+                    const emptyCell = document.createElement('div');
+                    emptyCell.className = 'cell empty';
+                    row.appendChild(emptyCell);
+                }
+
+                // Generamos las celdas para las letras
+                for (let i = 0; i < clue.word.length; i++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    if (i === clue.targetIdx) {
+                        cell.classList.add('target');
+                    }
+                    cell.id = `cell-${index}-${i}`;
+                    cell.innerText = clue.word[i]; 
+                    
+                    // Si ya estaba resuelto desde el LocalStorage, lo mostramos lleno
+                    if (solvedState[index]) {
+                        cell.classList.add('filled');
+                    }
+                    
+                    row.appendChild(cell);
+                }
+                
+                gridContainer.appendChild(row);
+
+                // Render Clue Input
+                const clueDiv = document.createElement('div');
+                clueDiv.className = 'clue-item';
+                if (solvedState[index]) clueDiv.classList.add('solved');
+                clueDiv.id = `clue-item-${index}`;
+                
+                // Si ya está resuelto, el input aparece deshabilitado y con la palabra
+                const inputValue = solvedState[index] ? clue.word : '';
+                const disabledAttr = solvedState[index] ? 'disabled' : '';
+
+                clueDiv.innerHTML = `
+                    <label class="clue-text" for="input-${index}">${clue.q}</label>
+                    <input type="text" class="clue-input" id="input-${index}" value="${inputValue}" ${disabledAttr} onkeyup="checkAnswer(${index}, this.value)" autocomplete="off">
+                `;
+                cluesContainer.appendChild(clueDiv);
+            });
+
+            updateProgress();
+            
+            // Si todo estaba resuelto al cargar la página
+            if (solvedCount === clues.length) {
+                triggerVictorySequence(true); 
+            } else if (solvedCount > 0) {
+                // Si hay progreso parcial, saltar directamente a la pantalla 2
+                nextScreen(2);
+            }
+        }
+
+        function checkAnswer(index, value) {
+            const normalizedVal = value.trim().toUpperCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+            const expected = clues[index].word;
+            const inputEl = document.getElementById(`input-${index}`);
+            const itemEl = document.getElementById(`clue-item-${index}`);
+
+            if (normalizedVal === expected && !inputEl.disabled) {
+                // Correcto!
+                inputEl.disabled = true;
+                itemEl.classList.add('solved');
+                
+                // Guardar estado en localStorage
+                solvedState[index] = true;
+                localStorage.setItem('solvedState', JSON.stringify(solvedState));
+                
+                // Revelar en la grilla con animación
+                for (let i = 0; i < expected.length; i++) {
+                    setTimeout(() => {
+                        document.getElementById(`cell-${index}-${i}`).classList.add('filled');
+                    }, i * 100);
+                }
+
+                solvedCount++;
+                updateProgress();
+                
+                if (solvedCount === clues.length) {
+                    triggerVictorySequence(false);
+                }
+            }
+        }
+
+        function updateProgress() {
+            document.getElementById('progressText').innerText = `Completado: ${solvedCount} / ${clues.length}`;
+        }
+
+        function triggerVictorySequence(immediate) {
+            const delay = immediate ? 0 : 1500;
+            setTimeout(() => {
+                document.getElementById('acrosticGrid').classList.add('target-revealed');
+                document.getElementById('secretMessage').style.display = 'block';
+                document.getElementById('btnNextChallenge').style.display = 'inline-block';
+                
+                if (!immediate) {
+                    document.getElementById('acrosticGrid').scrollIntoView({ behavior: 'smooth' });
+                }
+            }, delay);
+        }
+
+        function nextScreen(screenNum) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(`screen${screenNum}`).classList.add('active');
+            window.scrollTo(0,0);
+        }
+
+        function resetGame() {
+            if (confirm("¿Estás seguro de que quieres reiniciar el juego? Se perderá todo el progreso.")) {
+                localStorage.removeItem('solvedState');
+                solvedState = Array(clues.length).fill(false);
+                solvedCount = 0;
+                
+                // Ocultar elementos de victoria
+                document.getElementById('acrosticGrid').classList.remove('target-revealed');
+                document.getElementById('secretMessage').style.display = 'none';
+                document.getElementById('btnNextChallenge').style.display = 'none';
+                
+                renderGame();
+            }
+        }
+
+        window.onload = renderGame;
+    </script>
+</body>
+</html>
