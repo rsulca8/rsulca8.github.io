@@ -899,7 +899,7 @@
             const hora = now.getHours();
 
             // Para probar antes del día, cambia el "17" por un "0"
-            if (hora > 17) {
+            if (hora > 5) {
                 nextScreen(7);
             } else {
                 const horaFormat = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -914,7 +914,7 @@
             const hora = now.getHours();
 
             // Para probar antes del día, cambia el "20" por un "0"
-            if (hora > 20) {
+            if (hora > 7) {
                 nextScreen(8);
             } else {
                 const horaFormat = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
