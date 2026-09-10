@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,9 +14,13 @@
             --card-bg: rgba(255, 255, 255, 0.95);
             --grid-size: 25px;
         }
+
         @media (min-width: 500px) {
-            :root { --grid-size: 32px; }
+            :root {
+                --grid-size: 32px;
+            }
         }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, var(--bg-color) 0%, #ffcdd2 100%);
@@ -28,26 +33,32 @@
             align-items: center;
             overflow-x: hidden;
         }
+
         .container {
             width: 95%;
             max-width: 700px;
             background: var(--card-bg);
             border-radius: 20px;
-            padding: 20px;
+            padding: 35px 20px 20px 20px;
+            /* Un poco más de padding arriba para el botón Atrás */
             box-shadow: 0 10px 30px rgba(216, 27, 96, 0.2);
             text-align: center;
             margin: 20px 0;
+            position: relative;
         }
+
         h1 {
             color: var(--primary);
             font-size: 1.8em;
             margin-bottom: 15px;
         }
+
         p {
             font-size: 1em;
             line-height: 1.5;
             margin-bottom: 15px;
         }
+
         .btn {
             background: var(--primary);
             color: white;
@@ -61,31 +72,72 @@
             margin-top: 15px;
             display: inline-block;
         }
-        .btn:hover {
+
+        .btn:hover:not(:disabled) {
             background: #ad1457;
             transform: translateY(-2px);
         }
+
+        .btn:disabled {
+            background: #f48fb1;
+            cursor: not-allowed;
+        }
+
         .btn-reset {
             background: #757575;
             margin-top: 30px;
             font-size: 0.9em;
             padding: 8px 15px;
         }
+
         .btn-reset:hover {
             background: #424242;
         }
+
+        /* Botón de ir Atrás */
+        .btn-back {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            color: #94a3b8;
+            border: 1px solid #cbd5e1;
+            padding: 6px 12px;
+            font-size: 0.85em;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .btn-back:hover {
+            background: #f1f5f9;
+            color: var(--primary);
+            border-color: var(--primary-light);
+        }
+
         .screen {
             display: none;
             animation: fadeIn 0.5s ease-in-out;
         }
+
         .screen.active {
             display: block;
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         /* Acrostic Grid */
         .acrostic-container {
             margin: 20px auto;
@@ -95,10 +147,12 @@
             overflow-x: auto;
             padding-bottom: 10px;
         }
+
         .acrostic-row {
             display: flex;
             margin-bottom: 4px;
         }
+
         .cell {
             width: var(--grid-size);
             height: var(--grid-size);
@@ -111,21 +165,25 @@
             font-weight: bold;
             font-size: 0.9em;
             background: #fff;
-            color: transparent; 
+            color: transparent;
             transition: all 0.4s ease;
         }
+
         .cell.empty {
             border: none;
             background: transparent;
         }
+
         .cell.filled {
             color: var(--text-color);
             background: #f8bbd0;
             border-color: var(--primary);
         }
+
         .cell.target {
             border-width: 2px;
         }
+
         .target-revealed .cell.target.filled {
             background: #ffd54f !important;
             color: #b71c1c;
@@ -144,6 +202,7 @@
             border-top: 2px dashed var(--primary-light);
             padding-top: 15px;
         }
+
         .clue-item {
             margin-bottom: 12px;
             padding: 12px;
@@ -152,17 +211,20 @@
             border-radius: 10px;
             transition: all 0.3s ease;
         }
+
         .clue-item.solved {
             background: #e8f5e9;
             border-color: #66bb6a;
             opacity: 0.7;
         }
+
         .clue-text {
             font-weight: bold;
             font-size: 0.95em;
             margin-bottom: 8px;
             display: block;
         }
+
         .clue-input {
             width: calc(100% - 20px);
             padding: 8px;
@@ -171,15 +233,18 @@
             font-size: 1em;
             text-transform: uppercase;
         }
+
         .clue-input:focus {
             outline: none;
             border-color: var(--primary);
         }
+
         .progress {
             margin-top: 15px;
             font-weight: bold;
             color: var(--primary);
         }
+
         .secret-message {
             display: none;
             font-size: 1.3em;
@@ -188,67 +253,343 @@
             margin: 15px 0;
             animation: pulse 1.5s infinite;
         }
+
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .foto-recuadro-suave {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border: 4px solid #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .imagen-recuadro {
+            width: auto;
+            height: 250px;
+            object-fit: contain;
+            border: 4px solid #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .input-misterioso {
+            padding: 14px 20px;
+            font-size: 18px;
+            width: 100%;
+            max-width: 320px;
+            font-family: 'Courier New', Courier, monospace;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            background-color: #f1f5f9;
+            color: #0f172a;
+            outline: none;
+            letter-spacing: 6px;
+            transition: all 0.4s ease;
+        }
+
+        .input-misterioso:focus,
+        .input-misterioso:hover {
+            border-color: #6366f1;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
+        }
+
+        .input-misterioso::placeholder {
+            letter-spacing: normal;
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        .zumbido {
+            animation: zumbido 0.1s infinite;
+        }
+
+        .valor-incorrecto {
+            background-color: #ffcccc !important;
+            border-color: #dc3545 !important;
+            color: #b71c1c !important;
+        }
+
+        @keyframes zumbido {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(2px, 2px) rotate(1deg);
+            }
+
+            50% {
+                transform: translate(-2px, -2px) rotate(-1deg);
+            }
+
+            75% {
+                transform: translate(-2px, 2px) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(2px, -2px) rotate(1deg);
+            }
+        }
+
+        /* Mensajes de error personalizados */
+        .msg-error {
+            display: none;
+            background-color: #ffdde1;
+            color: #d32f2f;
+            padding: 10px 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.95em;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(211, 47, 47, 0.15);
+            transition: opacity 0.3s ease;
+        }
+
+        /* Estilos del Carrusel */
+        .carousel-container {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 20px auto;
+            position: relative;
+            border: 4px solid #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            background-color: #fce4ec;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
         }
     </style>
 </head>
+
 <body>
 
     <div class="container">
         <!-- Pantalla 1: Bienvenida -->
         <div id="screen1" class="screen active">
             <h1>Hola mi amor... ❤️</h1>
-            <p>Bienvenida a nuestros 3 años juntos. Fueron muchos momentos muy bellos estando a tu lado, puede parecer muchos, puede parecer poco, no lo sé, lo que si sé que fueron los momentos mas hermosos que vivimos en nuestras vidas. Gracias por acompañarme en este camino y por sumar a una nueva personita en este viaje. 👨‍👩‍👧</p>
-            <p>Te amo y sos lo más importante en mi vida 💘💞💓💕 </p>
+
+            <!-- Carrusel de fotos -->
+            <div class="carousel-container" id="fotoCarousel">
+                <!-- Las imágenes se insertan dinámicamente con JS -->
+            </div>
+
+            <p>💘💘💘 Bienvenida a nuestros 3 años juntos 💘💘💘.<br>
+                Todos nuestros momentos juntos han sido los más hermosos y felices. Cada día a tu lado es una bendición,
+                me llena de felicidad cuando caigo en la realidad de que tengo a mi lado a la mujer más hermosa del
+                mundo,
+                y que en cada beso, cada carcajada o en nuestras conversaciones interminables siento que estamos muy
+                unidos,
+                como si hubiesemos estados esperandonos muchos años para conocernos y estar juntos.
+                Gracias por haberme regalado a la otra mujer más hermosa del mundo, que es nuestra pequeña Tamarita que
+                nos une y nos hace muy felices con cada día que despierta y nos mira sonrie y juega.
+                Gracias por acompañarme en este camino y este viaje, siempre estaré para acomparte a vos también.
+                👨‍👩‍👧</p>
+            <p>Te amo y sos (y son con la Tamarita) lo más importante en mi vida 💘💞💓💕 </p>
             <p>Para iniciar este lindo día empecemos con un pequeño juego...</p>
             <button class="btn" onclick="nextScreen(2)">Comenzar el juego ✨</button>
         </div>
 
         <!-- Pantalla 2: Acróstico -->
         <div id="screen2" class="screen">
+            <button class="btn-back" onclick="nextScreen(1)">❮ Atrás</button>
             <h2>Nuestra Historia</h2>
-            <p>Responde las pistas. Al completarlo, se revelará un <strong>mensaje oculto</strong> en la columna central.</p>
-            
-            <div class="acrostic-container" id="acrosticGrid">
-                <!-- Se genera con JS -->
-            </div>
+            <p>Responde las pistas. Al completarlo, se revelará un <strong>mensaje oculto</strong> en la columna
+                central.</p>
+
+            <div class="acrostic-container" id="acrosticGrid"></div>
 
             <div class="secret-message" id="secretMessage">
                 ¡BUSCA LA CARTA! 💌
             </div>
-            
-            <div class="progress" id="progressText">Completado: 0 / 12</div>
-            <button class="btn" id="btnNextChallenge" onclick="nextScreen(3)" style="display: none;">Ver el siguiente paso 🧩</button>
 
-            <div class="clue-list" id="cluesContainer">
-                <!-- Se generan con JS -->
-            </div>
-            
-            <!-- Botón opcional para reiniciar por si quieren volver a jugar -->
+            <div class="progress" id="progressText">Completado: 0 / 12</div>
+            <button class="btn" id="btnNextChallenge" onclick="nextScreen(3)" style="display: none;">Ver el siguiente
+                paso 🧩</button>
+
+            <div class="clue-list" id="cluesContainer"></div>
+
             <button class="btn btn-reset" onclick="resetGame()">Reiniciar Juego</button>
         </div>
 
-        <!-- Pantalla 3: Rompecabezas / Coordenadas -->
+        <!-- Pantalla 3: Casa Abuelos -->
         <div id="screen3" class="screen">
-            <h2>¡Felicidades mi vida! 🎉</h2>
-            <p>Descubriste el mensaje oculto. Demostramos que nos conocemos como nadie.</p>
-            <p>Tu segundo desafío ha comenzado. Debes dirigirte al lugar que indican las siguientes coordenadas. Allí, debajo de una piedra específica, dejé <strong>la carta</strong> con unos números misteriosos...</p>
-            
-            <div style="background: var(--primary-light); color: white; padding: 15px; border-radius: 10px; margin: 15px 0;">
-                📍 Tu próximo destino:<br>
-                <span style="font-family: monospace; background: #fff; color: var(--primary); padding: 5px 10px; border-radius: 5px; display: inline-block; margin-top: 10px;">-24.786421051630075, -65.39965112556902</span><br>
-                <small>(Pista: Monumento a Güemes)</small>
+            <button class="btn-back" onclick="nextScreen(2)">❮ Atrás</button>
+            <h2>¡Felicidades mi amorcito! 🎉</h2>
+            <p>Antes de darte más detalles sobre la carta, tendrás que completar una misión antes. Llevarla a la
+                Tamarita a la casa de la abuela.</p>
+
+            <div
+                style="background: var(--primary-light); color: white; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                📍 Nuestro próximo destino:<br>
+                <span
+                    style="font-family: monospace; background: #fff; color: var(--primary); padding: 5px 10px; border-radius: 5px; display: inline-block; margin-top: 10px;">La
+                    casa de los abuelos</span><br>
             </div>
-            
-            <p>Ve hacia allí, encuéntrala y guárdala. ¡La aventura de hoy recién empieza!</p>
-            <p>Te amo profundamente. ❤️</p>
+            <div>
+                <img class="foto-recuadro-suave" src="../img/Tamarita 1.jpeg" />
+            </div>
+            <p>Ve hacia allí, que todos la estarán esperando contentos.</p>
+
+            <button class="btn" id="btnNextChallenge2" onclick="avanzarAScreen4()">Ver el siguiente paso 🫡</button>
+            <div id="errorBox3" class="msg-error"></div>
         </div>
+
+        <!-- Pantalla 4: Monumento -->
+        <div id="screen4" class="screen">
+            <button class="btn-back" onclick="nextScreen(3)">❮ Atrás</button>
+            <h2>Muy bien, ya dejamos a la Tamarita.</h2>
+            <p>El tercer desafío ha comenzado. Debes dirigirte al lugar que indican las siguientes coordenadas. Allí,
+                debajo de una piedra específica, dejé <strong>la carta</strong> con una clave misteriosa...</p>
+
+            <div
+                style="background: var(--primary-light); color: white; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                📍 Tu próximo destino:
+                <br>
+                <span
+                    style="font-family: monospace; background: #fff; color: var(--primary); padding: 5px 10px; border-radius: 5px; display: inline-block; margin-top: 10px;">El
+                    Monumento Güemes</span><br>
+            </div>
+            <img class="foto-recuadro-suave"
+                src="https://www.argentina.gob.ar/sites/default/files/monumento-a-guemes1.jpg">
+
+            <p>Ve hacia allí, encuéntrala y guardala bien.</p>
+            <p>Te amo mucho mucho. ❤️</p>
+
+            <button class="btn" id="btnNextChallenge3" onclick="avanzarAScreen5()">Ver el siguiente paso 🫡</button>
+            <div id="errorBox4" class="msg-error"></div>
+        </div>
+
+        <!-- Pantalla 5 Monumento Input Clave -->
+        <div id="screen5" class="screen">
+            <button class="btn-back" onclick="nextScreen(4)">❮ Atrás</button>
+            <h2>Muy bien, llegamos al monumento</h2>
+            <p>Si ya encontraste la carta, ingresame la clave que contiene</p>
+
+            <div
+                style="background: var(--primary-light); color: white; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                🔒Ingresar la clave:<br><br>
+                <input id="input_clave" class="input-misterioso" autocomplete="off" placeholder="Ingresa tu clave...">
+            </div>
+
+            <button class="btn" id="btnNextChallenge4" onclick="avanzarAScreen6()">Ver el siguiente paso 🫡</button>
+        </div>
+
+        <!-- Pantalla 6 Entradas del cine -->
+        <div id="screen6" class="screen">
+            <button class="btn-back" onclick="nextScreen(5)">❮ Atrás</button>
+            <h2>Muy bien amorcito, encontraste la clave, te amo</h2>
+            <p>Ahora a las 15:00 tienen que estar en el Cine Hoyts</p>
+            <p>A disfrutar de la película</p>
+            <div
+                style="background: var(--primary-light); color: white; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                Y a no olvidarse del contrabando 🤭🤭
+                <br><br>
+                <img class="imagen-recuadro" src="../img/meme_marge.jpg">
+            </div>
+
+            <button class="btn" id="btnNextChallenge5" onclick="avanzarAScreen7()">Ver el siguiente paso 🫡</button>
+            <div id="errorBox5" class="msg-error"></div>
+        </div>
+
+        <!-- Pantalla 7 La Casona -->
+        <div id="screen7" class="screen">
+            <button class="btn-back" onclick="nextScreen(6)">❮ Atrás</button>
+            <h2>¡Hora de cenar! 🍽️</h2>
+            <p>Ve al restaurante <strong>"La Casona de Güemes"</strong> a las 19:00 - 20:00hs y disfruten de una rica
+                comida.</p>
+
+            <div
+                style="background: var(--primary-light); color: white; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                
+                <img class="imagen-recuadro" src="../img/casona.jpg">
+            </div>
+
+            <button class="btn" id="btnNextChallenge6" onclick="avanzarAScreen8()">Ver el siguiente paso 🫡</button>
+            <div id="errorBox6" class="msg-error"></div>
+        </div>
+
+        <!-- Pantalla 8 Paseo -->
+        <div id="screen8" class="screen">
+            <button class="btn-back" onclick="nextScreen(7)">❮ Atrás</button>
+            <h2>Siguiente destino</h2>
+            <p>Ve a la <strong>Plaza del Paseo Ex Palúdica</strong>.</p>
+
+            <div
+                style="background: var(--primary-light); color: white; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                📍 Último destino:<br>
+
+                
+                <span
+                style="font-family: monospace; background: #fff; color: var(--primary); padding: 5px 10px; border-radius: 5px; display: inline-block; margin-top: 10px;">Paseo
+                de la Ex Palúdica</span><br>
+            </div>
+            <img class="imagen-recuadro" src="https://prensa.municipalidadsalta.gob.ar/wp-content/uploads/2026/03/ex-paludica-1-1.webp">
+
+        </div>
+
     </div>
 
     <script>
+        /* ================= CAROUSEL SCRIPT ================= */
+        const carouselPhotos = [
+            "../img/KyR_1.jpg", "../img/KyR_2.jpg", "../img/KyR_3.jpg",
+            "../img/KyR_4.jpg", "../img/KyR_5.jpg", "../img/KyR_6.jpg",
+            "../img/KyR_7.jpg", "../img/KyR_8.jpg", "../img/KyR_9.jpeg",
+            "../img/KyR_10.jpeg", "../img/KyT_1.jpg", "../img/KyT_2.jpg",
+            "../img/RyT_1.jpeg", "../img/RyT_2.jpeg", "../img/Tamarita 1.jpeg"
+        ];
+
+        let currentSlide = 0;
+
+        function initCarousel() {
+            const container = document.getElementById('fotoCarousel');
+            carouselPhotos.forEach((src, index) => {
+                const img = document.createElement('img');
+                img.src = src;
+                img.className = 'carousel-slide';
+                if (index === 0) img.classList.add('active');
+                container.appendChild(img);
+            });
+
+            setInterval(() => {
+                const slides = document.querySelectorAll('.carousel-slide');
+                if (slides.length === 0) return;
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, 3000);
+        }
+
+        /* ================= JUEGO ACROSTICO ================= */
         const clues = [
             { word: "CSB", q: "1. Siglas del lugar donde te di mi declaración de amor:", targetIdx: 2, pad: 1 },
             { word: "SUDAMERICANA", q: "2. Nombre de la farmacia donde nos encontramos en nuestra primera cita:", targetIdx: 1, pad: 2 },
@@ -266,30 +607,37 @@
 
         let solvedState = JSON.parse(localStorage.getItem('solvedState')) || Array(clues.length).fill(false);
         let solvedCount = solvedState.filter(Boolean).length;
-        const TARGET_COL = 3; 
+        const TARGET_COL = 3;
+        const CLAVE = "WPC3GDJ";
+
+        // COORDENADAS
+        const LAT_CASA = -24.784965217854737;
+        const LON_CASA = -65.43472777078425;
+
+        // Cambiar por las reales cuando vayas a jugar:
+        const LAT_MONUMENTO = LAT_CASA;
+        const LON_MONUMENTO = LON_CASA;
+        const LAT_ABUELOS = LAT_CASA;
+        const LON_ABUELO = LON_CASA;
 
         function renderGame() {
             const gridContainer = document.getElementById('acrosticGrid');
             const cluesContainer = document.getElementById('cluesContainer');
 
-            // Limpiamos los contenedores por si se llama en un reinicio
             gridContainer.innerHTML = '';
             cluesContainer.innerHTML = '';
 
             clues.forEach((clue, index) => {
-                // Render Row for Grid
                 const row = document.createElement('div');
                 row.className = 'acrostic-row';
                 row.id = `row-${index}`;
-                
-                // Calculamos cuántos espacios vacíos al inicio (pad)
+
                 for (let i = 0; i < clue.pad; i++) {
                     const emptyCell = document.createElement('div');
                     emptyCell.className = 'cell empty';
                     row.appendChild(emptyCell);
                 }
 
-                // Generamos las celdas para las letras
                 for (let i = 0; i < clue.word.length; i++) {
                     const cell = document.createElement('div');
                     cell.className = 'cell';
@@ -297,25 +645,21 @@
                         cell.classList.add('target');
                     }
                     cell.id = `cell-${index}-${i}`;
-                    cell.innerText = clue.word[i]; 
-                    
-                    // Si ya estaba resuelto desde el LocalStorage, lo mostramos lleno
+                    cell.innerText = clue.word[i];
+
                     if (solvedState[index]) {
                         cell.classList.add('filled');
                     }
-                    
                     row.appendChild(cell);
                 }
-                
+
                 gridContainer.appendChild(row);
 
-                // Render Clue Input
                 const clueDiv = document.createElement('div');
                 clueDiv.className = 'clue-item';
                 if (solvedState[index]) clueDiv.classList.add('solved');
                 clueDiv.id = `clue-item-${index}`;
-                
-                // Si ya está resuelto, el input aparece deshabilitado y con la palabra
+
                 const inputValue = solvedState[index] ? clue.word : '';
                 const disabledAttr = solvedState[index] ? 'disabled' : '';
 
@@ -327,14 +671,19 @@
             });
 
             updateProgress();
-            
-            // Si todo estaba resuelto al cargar la página
+
             if (solvedCount === clues.length) {
-                triggerVictorySequence(true); 
-            } else if (solvedCount > 0) {
-                // Si hay progreso parcial, saltar directamente a la pantalla 2
-                nextScreen(2);
+                triggerVictorySequence(true);
             }
+
+            // --- INICIALIZACIÓN PERSISTENTE DE PANTALLA ---
+            let savedScreen = localStorage.getItem('currentScreen') || 1;
+
+            if (savedScreen == 1 && solvedCount > 0) {
+                savedScreen = 2;
+            }
+
+            nextScreen(savedScreen);
         }
 
         function checkAnswer(index, value) {
@@ -344,15 +693,12 @@
             const itemEl = document.getElementById(`clue-item-${index}`);
 
             if (normalizedVal === expected && !inputEl.disabled) {
-                // Correcto!
                 inputEl.disabled = true;
                 itemEl.classList.add('solved');
-                
-                // Guardar estado en localStorage
+
                 solvedState[index] = true;
                 localStorage.setItem('solvedState', JSON.stringify(solvedState));
-                
-                // Revelar en la grilla con animación
+
                 for (let i = 0; i < expected.length; i++) {
                     setTimeout(() => {
                         document.getElementById(`cell-${index}-${i}`).classList.add('filled');
@@ -361,7 +707,7 @@
 
                 solvedCount++;
                 updateProgress();
-                
+
                 if (solvedCount === clues.length) {
                     triggerVictorySequence(false);
                 }
@@ -378,7 +724,7 @@
                 document.getElementById('acrosticGrid').classList.add('target-revealed');
                 document.getElementById('secretMessage').style.display = 'block';
                 document.getElementById('btnNextChallenge').style.display = 'inline-block';
-                
+
                 if (!immediate) {
                     document.getElementById('acrosticGrid').scrollIntoView({ behavior: 'smooth' });
                 }
@@ -388,25 +734,191 @@
         function nextScreen(screenNum) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(`screen${screenNum}`).classList.add('active');
-            window.scrollTo(0,0);
+
+            localStorage.setItem('currentScreen', screenNum);
+
+            window.scrollTo(0, 0);
         }
 
         function resetGame() {
             if (confirm("¿Estás seguro de que quieres reiniciar el juego? Se perderá todo el progreso.")) {
                 localStorage.removeItem('solvedState');
+                localStorage.removeItem('currentScreen');
                 solvedState = Array(clues.length).fill(false);
                 solvedCount = 0;
-                
-                // Ocultar elementos de victoria
+
                 document.getElementById('acrosticGrid').classList.remove('target-revealed');
                 document.getElementById('secretMessage').style.display = 'none';
                 document.getElementById('btnNextChallenge').style.display = 'none';
-                
+
                 renderGame();
+                nextScreen(1);
             }
         }
 
-        window.onload = renderGame;
+        /* ================= GEOLOCALIZACION ASÍNCRONA ================= */
+
+        function calcularDistanciaHaversine(lat1, lon1, lat2, lon2) {
+            const RadioTierraMetros = 6371000;
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            return RadioTierraMetros * c;
+        }
+
+        function verificarUbicacionPromise(destino_lat, destino_lon) {
+            return new Promise((resolve) => {
+                if (!navigator.geolocation) {
+                    resolve({ exito: false, mensaje: "Tu celular no soporta GPS o está desactivado." });
+                    return;
+                }
+
+                const opciones = {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 0
+                };
+
+                navigator.geolocation.getCurrentPosition(
+                    (posicion) => {
+                        const usuarioLat = posicion.coords.latitude;
+                        const usuarioLon = posicion.coords.longitude;
+                        const distancia = calcularDistanciaHaversine(usuarioLat, usuarioLon, destino_lat, destino_lon);
+
+                        if (distancia <= 100) {
+                            resolve({ exito: true });
+                        } else {
+                            resolve({ exito: false, mensaje: `Aún están lejos. (Aprox. ${Math.round(distancia)} metros). ¡Hay que estar a menos de 100m!` });
+                        }
+                    },
+                    (error) => {
+                        resolve({ exito: false, mensaje: `Error de GPS: Asegurate de darle permisos a la página y tener la ubicación prendida.` });
+                    },
+                    opciones
+                );
+            });
+        }
+
+        function mostrarErrorVisual(btnId, errorBoxId, mensaje) {
+            const btn = document.getElementById(btnId);
+            const errorBox = document.getElementById(errorBoxId);
+
+            btn.classList.add("zumbido", "valor-incorrecto");
+            setTimeout(() => {
+                btn.classList.remove("zumbido", "valor-incorrecto");
+            }, 800);
+
+            errorBox.innerText = mensaje;
+            errorBox.style.display = 'block';
+            setTimeout(() => { errorBox.style.opacity = 1; }, 10);
+
+            setTimeout(() => {
+                errorBox.style.opacity = 0;
+                setTimeout(() => { errorBox.style.display = 'none'; }, 300);
+            }, 6000);
+        }
+
+        async function avanzarAScreen4() {
+            const btn = document.getElementById('btnNextChallenge2');
+            const textoOriginal = btn.innerText;
+
+            btn.innerText = "Buscando satélites ⏳...";
+            btn.disabled = true;
+
+            const resultado = await verificarUbicacionPromise(LAT_ABUELOS, LON_ABUELO);
+
+            btn.innerText = textoOriginal;
+            btn.disabled = false;
+
+            if (resultado.exito) {
+                nextScreen(4);
+            } else {
+                mostrarErrorVisual('btnNextChallenge2', 'errorBox3', resultado.mensaje);
+            }
+        }
+
+        async function avanzarAScreen5() {
+            const btn = document.getElementById('btnNextChallenge3');
+            const textoOriginal = btn.innerText;
+
+            btn.innerText = "Buscando satélites ⏳...";
+            btn.disabled = true;
+
+            const resultado = await verificarUbicacionPromise(LAT_MONUMENTO, LON_MONUMENTO);
+
+            btn.innerText = textoOriginal;
+            btn.disabled = false;
+
+            if (resultado.exito) {
+                nextScreen(5);
+            } else {
+                mostrarErrorVisual('btnNextChallenge3', 'errorBox4', resultado.mensaje);
+            }
+        }
+
+        function avanzarAScreen6() {
+            const btn = document.getElementById('btnNextChallenge4');
+            const input_clave = document.getElementById('input_clave');
+            const textoOriginal = btn.innerText;
+
+            btn.innerText = "Desencriptando...";
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerText = textoOriginal;
+                btn.disabled = false;
+
+                if (input_clave.value.trim().toUpperCase() === CLAVE) {
+                    nextScreen(6);
+                } else {
+                    input_clave.classList.add("zumbido", "valor-incorrecto");
+                    setTimeout(() => {
+                        input_clave.classList.remove("zumbido", "valor-incorrecto");
+                    }, 800);
+                }
+            }, 1000);
+        }
+
+        /* ================= BLOQUEOS DE HORA ================= */
+
+        function avanzarAScreen7() {
+            const btnId = 'btnNextChallenge5';
+            const errorBoxId = 'errorBox5';
+            const now = new Date();
+            const hora = now.getHours();
+
+            // Para probar antes del día, cambia el "17" por un "0"
+            if (hora > 17) {
+                nextScreen(7);
+            } else {
+                const horaFormat = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                mostrarErrorVisual(btnId, errorBoxId, `Aún es temprano amorcito, no seas ansiosa 🤭. Esta pista se revelará a las 17:00 hs. (Hora actual: ${horaFormat})`);
+            }
+        }
+
+        function avanzarAScreen8() {
+            const btnId = 'btnNextChallenge6';
+            const errorBoxId = 'errorBox6';
+            const now = new Date();
+            const hora = now.getHours();
+
+            // Para probar antes del día, cambia el "20" por un "0"
+            if (hora > 20) {
+                nextScreen(8);
+            } else {
+                const horaFormat = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                mostrarErrorVisual(btnId, errorBoxId, `Todavía falta un poquito. Disfrutemos la cena, esta pista se abrirá a las 20:00 hs. (Hora actual: ${horaFormat})`);
+            }
+        }
+
+        window.onload = () => {
+            initCarousel();
+            renderGame();
+        };
     </script>
 </body>
+
 </html>
